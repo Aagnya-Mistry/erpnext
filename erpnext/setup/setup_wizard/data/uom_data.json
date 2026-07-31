@@ -887,6 +887,13 @@
 		"category": "Time"
 	},
 	{
+		"uom_name": "Month",
+		"must_be_whole_number": 0,
+		"common_code": "MON",
+		"symbol": "mo",
+		"category": "Time"
+	},
+	{
 		"uom_name": "Nanocoulomb",
 		"must_be_whole_number": 0,
 		"category": "Electrical Charge"
@@ -1291,5 +1298,12 @@
 		"common_code": "YRD",
 		"symbol": "yd",
 		"category": "Length"
+	},
+	{
+		"uom_name": "Year",
+		"must_be_whole_number": 0,
+		"common_code": "ANN",
+		"symbol": "yr",
+		"category": "Time"
 	}
 ]

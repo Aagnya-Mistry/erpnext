@@ -1216,13 +1216,15 @@ def get_items_for_stock_reco(warehouse, company):
 		where
 			i.name = id.parent
 			and exists(
-				select name from `tabWarehouse` where lft >= %s and rgt <= %s and name=id.default_warehouse and is_group = 0
+				select name from `tabWarehouse` where lft >= {lft} and rgt <= {rgt} and name = bin.warehouse and is_group = 0
 			)
+			order by i.name
 			and i.is_stock_item = 1
 			and i.has_variants = 0
 			and IFNULL(i.disabled, 0) = 0
 			and id.company = %s
 		group by i.name
+		order by i.name
 	""",
 		(lft, rgt, company),
 		as_dict=1,

@@ -135,7 +135,7 @@
 		"category": "Length",
 		"from_uom": "Meter",
 		"to_uom": "Micrometer",
-		"abbr": "µm",
+		"abbr": "Âµm",
 		"value": "1000000"
 	},
 	{
@@ -755,6 +755,20 @@
 		"value": "0.000001653439"
 	},
 	{
+		"category": "Time",
+		"from_uom": "Second",
+		"to_uom": "Month",
+		"abbr": "mo",
+		"value": "0.000000380257"
+	},
+	{
+		"category": "Time",
+		"from_uom": "Second",
+		"to_uom": "Year",
+		"abbr": "yr",
+		"value": "0.0000000316881"
+	},
+	{
 		"category": "Pressure",
 		"from_uom": "Pascal",
 		"to_uom": "Atmosphere",
@@ -1259,7 +1273,7 @@
 		"category": "Density",
 		"from_uom": "Gram/Litre",
 		"to_uom": "Microgram/Litre",
-		"abbr": "µm/l",
+		"abbr": "Âµm/l",
 		"value": "1000000"
 	},
 	{
@@ -1344,14 +1358,14 @@
 		"category": "Density",
 		"from_uom": "Gram/Litre",
 		"to_uom": "Ton (Short)/Cubic Yard",
-		"abbr": "ton(short)/yd³",
+		"abbr": "ton(short)/ydÂ³",
 		"value": "0.0008427775"
 	},
 	{
 		"category": "Density",
 		"from_uom": "Gram/Litre",
 		"to_uom": "Ton (Long)/Cubic Yard",
-		"abbr": "ton(long)/yd³",
+		"abbr": "ton(long)/ydÂ³",
 		"value": "0.000752479873"
 	},
 	{
