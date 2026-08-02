@@ -1189,50 +1189,70 @@ def get_item_and_warehouses(item_code, warehouse):
 
 def get_items_for_stock_reco(warehouse, company):
 	lft, rgt = frappe.db.get_value("Warehouse", warehouse, ["lft", "rgt"])
+
 	items = frappe.db.sql(
 		f"""
 		select
-			i.name as item_code, i.item_name, bin.warehouse as warehouse, i.has_serial_no, i.has_batch_no
+			i.name as item_code,
+			i.item_name,
+			bin.warehouse as warehouse,
+			i.has_serial_no,
+			i.has_batch_no
 		from
-			`tabBin` bin, `tabItem` i
+			`tabBin` bin,
+			`tabItem` i
 		where
 			i.name = bin.item_code
 			and IFNULL(i.disabled, 0) = 0
 			and i.is_stock_item = 1
 			and i.has_variants = 0
-			and exists(
-				select name from `tabWarehouse` where lft >= {lft} and rgt <= {rgt} and name = bin.warehouse and is_group = 0
+			and exists (
+				select name
+				from `tabWarehouse`
+				where lft >= {lft}
+					and rgt <= {rgt}
+					and name = bin.warehouse
+					and is_group = 0
 			)
-	""",
+		""",
 		as_dict=1,
 	)
 
 	items += frappe.db.sql(
-		"""
+		f"""
 		select
-			i.name as item_code, i.item_name, id.default_warehouse as warehouse, i.has_serial_no, i.has_batch_no
+			i.name as item_code,
+			i.item_name,
+			id.default_warehouse as warehouse,
+			i.has_serial_no,
+			i.has_batch_no
 		from
-			`tabItem` i, `tabItem Default` id
+			`tabItem` i,
+			`tabItem Default` id
 		where
 			i.name = id.parent
-			and exists(
-				select name from `tabWarehouse` where lft >= {lft} and rgt <= {rgt} and name = bin.warehouse and is_group = 0
+			and exists (
+				select name
+				from `tabWarehouse`
+				where lft >= {lft}
+					and rgt <= {rgt}
+					and name = id.default_warehouse
+					and is_group = 0
 			)
-			order by i.name
 			and i.is_stock_item = 1
 			and i.has_variants = 0
 			and IFNULL(i.disabled, 0) = 0
 			and id.company = %s
-		group by i.name
-		order by i.name
-	""",
-		(lft, rgt, company),
+		group by
+			i.name
+		order by
+			i.name
+		""",
+		(company,),
 		as_dict=1,
 	)
 
-	# remove duplicates
-	# check if item-warehouse key extracted from each entry exists in set iw_keys
-	# and update iw_keys
+	# Remove duplicates
 	iw_keys = set()
 	items = [
 		item
